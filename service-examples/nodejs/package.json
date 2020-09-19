@@ -1,0 +1,39 @@
+{
+	"name": "@cexiolabs/cryptopay.demo.service",
+	"version": "1.0.0",
+	"description": "CryptoPay's Merchant Demo Service",
+	"scripts": {
+		"start": "node ./bin/app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cexiolabs/cryptopay.demo.ui.git"
+	},
+	"author": {
+		"email": "devel@cexiolabs.com",
+		"name": "CEXIOLABS",
+		"url": "http://cexiolabs.com"
+	},
+	"contributors": [
+		{
+			"email": "m.anurin@cexiolabs.com",
+			"name": "Maxim Anurin"
+		},
+		{
+			"email": "s.kozlov@cexiolabs.com",
+			"name": "Serhii Kozlov"
+		},
+		{
+			"email": "v.syniakin@cexiolabs.com",
+			"name": "Volodymyr Syniakin"
+		}
+	],
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/cexiolabs/cryptopay.demo.ui/issues"
+	},
+	"homepage": "https://github.com/cexiolabs/cryptopay.demo.ui#readme",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}
