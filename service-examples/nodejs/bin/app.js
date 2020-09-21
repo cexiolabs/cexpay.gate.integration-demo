@@ -1,43 +1,86 @@
 #!/usr/bin/env node
 
-// Read configuration
-const gateApiUrl = new URL(process.env.GATE_API_URL);
-const gateApiPassphrase = process.env.GATE_API_PASSPHRASE;
-const gateWidgetUrl = new URL(process.env.GATE_WIIDGET_URL);
-const port = 3000;
-
 // Necessary modules
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
+const https = require('https');
+const bodyParser = require('body-parser');
 
+// Read configuration
+const gateApiUrl = new URL(process.env.GATE_API_URL);
+const gateWidgetUrl = new URL(process.env.GATE_WIIDGET_URL);
+const gateApiPassphrase = process.env.GATE_API_PASSPHRASE;
+
+const port = 3000;
 
 // Define Express Applcation https://expressjs.com/en/starter/hello-world.html
 const app = express();
+app.use(bodyParser.json());
 
-app.get('/api', (req, res) => {
-	// TODO Interact with CryptoPay Gateway
+async function makeRequest(currency, amount) {
+	return new Promise((resolve, reject) => {
+		const reqData = JSON.stringify({
+			"instrument": "CRYPTO_SELL",
+			"model": "DEFAULT",
+			"to": {
+				currency,
+				amount,
+			}
+		});
+	
+		const options = {
+			host: gateApiUrl.host,
+			port: '443',
+			path: gateApiUrl.pathname,
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'CP-ACCESS-PASSPHRASE': gateApiPassphrase,
+				'Content-Length': reqData.length,
+			}
+		}
 
-	// Request order:
-	//   POST ${gateApiUrl}/order
-	//   Headers:
-	//     "Content-type": "application/json"
-	//     "CP-ACCESS-PASSPHRASE": "${gateApiPassphrase}"
-	//   Body:
-	//     {
-	//       "instrument": "CRYPTO_SELL",
-	//       "model": "DEFAULT",
-	//       "to": {
-	//         "currency": "USD",
-	//         "amount": "20"
-	//       }
-	//     }
-	//   Retreive OrderId
+		const req = https.request(options, (res) => {
+			if (res.statusCode >= 300) {
+				reject(`Request error, status code: ${res.statusCode}`);
+				return;
+			}
+			let response = '';
+			res.on('data', (chuck) => {
+				response += chuck;
+			});
+			res.on('end', () => {
+				resolve(JSON.parse(response));
+			})
+		}).on('error', (error) => {
+			reject(error);
+			return;
+		});
 
+		req.write(reqData);
+		req.end();
+	});	
+}
 
-	// Format Widget URL:
-	//  const paymentURL = ${gateWidgetUrl}/${orderId}
+app.post('/api', async (req, res) => {
+	const { currency, amount } = req.body;
 
-	res.send('Hello World API!');
+	if (!currency || !amount) {
+		res.end(JSON.stringify({
+			error: 'Bad request.',
+		}));
+	}
+
+	try {
+		const order = await makeRequest(currency, amount);
+		const paymentURL = `${gateWidgetUrl.toString()}/${order.id}`;
+		res.end(JSON.stringify({ paymentURL }));
+	} catch (error) {
+		res.end(JSON.stringify({
+			error: 'Service unavailable.',
+		}));
+	}
 });
 
 
