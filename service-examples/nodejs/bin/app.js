@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 // Necessary modules
-require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const https = require('https');
@@ -9,10 +8,10 @@ const bodyParser = require('body-parser');
 
 // Read configuration
 const gateApiUrl = new URL(process.env.GATE_API_URL);
-const gateWidgetUrl = new URL(process.env.GATE_WIIDGET_URL);
+const gateWidgetUrl = new URL(process.env.GATE_WIDGET_URL);
 const gateApiPassphrase = process.env.GATE_API_PASSPHRASE;
 
-const port = 3000;
+const port = 8080;
 
 // Define Express Applcation https://expressjs.com/en/starter/hello-world.html
 const app = express();
