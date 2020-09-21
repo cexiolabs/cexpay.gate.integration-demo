@@ -65,13 +65,7 @@ async function makeRequest(currency, amount) {
 
 app.post('/api', async (req, res) => {
 	const { currency, amount } = req.body;
-
-	if (!currency || !amount) {
-		res.end(JSON.stringify({
-			error: 'Bad request.',
-		}));
-	}
-
+	// TODO some validation for currency and amount.
 	try {
 		const order = await makeRequest(currency, amount);
 		const paymentURL = `${gateWidgetUrl.toString()}/${order.id}`;
