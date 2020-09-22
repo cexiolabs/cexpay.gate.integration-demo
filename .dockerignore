@@ -1,6 +1,4 @@
-service-examples/nodejs/node_modules
-README.md
-.gitmodules
-Dockerfile
-.git
-.dockerignore
+*
+!service/nodejs/bin/
+!service/nodejs/package*.json
+!ui/
