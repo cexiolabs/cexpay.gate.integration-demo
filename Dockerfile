@@ -23,4 +23,5 @@ ENV GATE_API_URL=
 ENV GATE_API_PASSPHRASE=
 ENV GATE_API_SECRET=
 ENV GATE_WIDGET_URL=
+ENV BASE_PATH=
 ENTRYPOINT [ "/usr/local/cryptopay-demo/service/nodejs/bin/app.js"]
