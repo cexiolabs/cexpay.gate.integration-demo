@@ -12,7 +12,8 @@ You can check documentation [here](https://developers.cryptopay.band/gateway/gat
 	export GATE_API_PASSPHRASE=...
 	export GATE_API_SECRET=...
 	export GATE_WIDGET_URL=... # Like https://sandbox.cryptopay.band/widget/xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-	docker run --rm --interactive --tty --publish 8080:8080 --env GATE_API_URL --env GATE_API_PASSPHRASE --env GATE_API_SECRET --env GATE_WIDGET_URL cexiolabs/cryptopay.demo
+	export BASE_PATH=... # Optional
+	docker run --rm --interactive --tty --publish 8080:8080 --env GATE_API_URL --env GATE_API_PASSPHRASE --env GATE_API_SECRET --env GATE_WIDGET_URL --env BASE_PATH cexiolabs/cryptopay.demo
 	```
 1. Open the following address in your browser: http://127.0.0.1:8080
 
