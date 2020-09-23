@@ -1,4 +1,7 @@
-# TBD
+# Cryptopay Payment Gateway demo
+
+This projects demostates integration with Cryptopay Payment Gateway.
+You can check documentation [here](https://developers.cryptopay.band/gateway/gateway-overview).
 
 ## Quick start via Docker
 
