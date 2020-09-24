@@ -3,6 +3,7 @@ WORKDIR /build/usr/local/cryptopay-demo
 
 # Coping necessary artifacts
 COPY service/nodejs/bin/ service/nodejs/bin/
+COPY service/nodejs/lib/ service/nodejs/lib/
 COPY service/nodejs/package.json service/nodejs/
 COPY service/nodejs/package-lock.json service/nodejs/
 COPY ui/ ui/
