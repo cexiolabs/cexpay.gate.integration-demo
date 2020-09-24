@@ -1,4 +1,5 @@
 *
 !service/nodejs/bin/
+!service/nodejs/lib/
 !service/nodejs/package*.json
 !ui/
