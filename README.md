@@ -16,7 +16,7 @@ You can check documentation [here](https://developers.cryptopay.band/gateway/gat
 	export BASE_PATH=... # Optional
 	docker run --rm --interactive --tty --publish 8080:8080 --env GATE_API_URL --env GATE_API_GATEWAY_ID --env GATE_API_PASSPHRASE --env GATE_API_SECRET --env GATE_WIDGET_URL --env BASE_PATH cexiolabs/cryptopay.demo
 	```
-1. Open the following address in your browser: http://127.0.0.1:8080
+1. Open the following address in your browser: http://localhost:8080
 
 ## Dev notes
 
@@ -34,12 +34,3 @@ npm start
 ```bash
 docker build --tag cexiolabs/cryptopay.demo --file Dockerfile .
 ```
-
-	export GATE_API_URL=https://gate-evolution-cryptopay.dev.kube/v2/gate
-	export GATE_API_GATEWAY_ID=09635610-6109-4179-833b-8675fa709d9b
-	export GATE_API_PASSPHRASE=d0d1ff7262d36b55704c7985e47d7aa0
-	export GATE_API_SECRET=9wUo+LRIukjefUUVs641O9DOzCl9sjnnPMa3sUGj+NMSTEzhcrUnB3fp2X5G49sCfV9eMAoyzR8fCoRU5nmUag==
-	export GATE_WIDGET_URL=https://gate-evolution-cryptopay.dev.kube/widget
-	export GATE_WIDGET_URL=http://localhost:3000/widget/
-	export BASE_PATH=
-

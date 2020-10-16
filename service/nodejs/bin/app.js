@@ -35,7 +35,7 @@ if (BASE_PATH !== '/') {
 
 // Listen
 app.listen(port, '0.0.0.0', () => {
-	console.log(`Demo service is listening at http://0.0.0.0:${port}${BASE_PATH}`);
+	console.log(`Demo service is listening at http://localhost:${port}${BASE_PATH}`);
 	console.log();
 	console.log(`GATE_API_URL: ${GATE_API_URL}`);
 	console.log(`GATE_API_GATEWAY_ID: ${GATE_API_GATEWAY_ID}`);
