@@ -5,13 +5,17 @@ const fetch = require('node-fetch');
 const express = require('express');
 const path = require('path');
 
-function createRequestHandler({ basePath, apiUrl, widgetUrl, passphrase, secret }) {
+function createRequestHandler({ basePath, apiBaseUrl, gatewayId, passphrase, secret }) {
 	const router = express.Router();
 
 	// Some validatetion
 	if (!/^(\/[A-Za-z0-9\-]+)?\/$/.test(basePath)) {
 		throw new Error(`Bad value of basePath: ${basePath}`);
 	}
+
+	const apiUrl = new URL(apiBaseUrl);
+	apiUrl.pathname = path.join(apiUrl.pathname, gatewayId);
+	console.log(apiUrl.toString());
 
 	router.use(basePath, bodyParser.json());
 
@@ -69,18 +73,14 @@ function createRequestHandler({ basePath, apiUrl, widgetUrl, passphrase, secret 
 
 			const order = await fetchResponse.json();
 
-			let widgetBaseUrlStr = widgetUrl.toString();
-			if (!widgetBaseUrlStr.endsWith('/')) { widgetBaseUrlStr = widgetBaseUrlStr + '/'; }
-			const paymentURL = new URL(`${widgetBaseUrlStr}${order.id}`);
+			res.status(201).end(JSON.stringify({ orderId: order.id }));
 
-			res.status(201).end(JSON.stringify({ paymentURL }));
-
-			console.log(`Got request for new order ${amount} ${currency}. Payment URL is ${paymentURL}`);
+			console.log(`Got request for new order ${amount} ${currency}. OrderId is '${ order.id }'.`);
 
 		} catch (error) {
-			const errMessage = 'Underlaying service error: ' + error.message;
-			res.writeHead(500, errMessage).end(JSON.stringify({ error: errMessage }));
 			console.error(error);
+			const errMessage = 'Underlaying service error: ' + error.message;
+			res.writeHead(500).end(JSON.stringify({ error: errMessage }));
 		}
 	});
 

@@ -3,3 +3,4 @@
 !service/nodejs/lib/
 !service/nodejs/package*.json
 !ui/
+!docker-entrypoint.sh

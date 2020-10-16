@@ -5,12 +5,12 @@ const express = require('express');
 
 const { createRequestHandler } = require('../lib/index');
 
-// Read configuration
+// Read configurations
+const BASE_PATH = process.env.BASE_PATH || "/";
 const GATE_API_URL = new URL(process.env.GATE_API_URL);
-const GATE_WIDGET_URL = new URL(process.env.GATE_WIDGET_URL);
+const GATE_API_GATEWAY_ID = process.env.GATE_API_GATEWAY_ID;
 const GATE_API_PASSPHRASE = process.env.GATE_API_PASSPHRASE;
 const GATE_API_SECRET = process.env.GATE_API_SECRET;
-const BASE_PATH = process.env.BASE_PATH || "/";
 
 const port = 8080;
 const secret = GATE_API_SECRET !== undefined ? Buffer.from(GATE_API_SECRET, "base64") : null;
@@ -20,8 +20,8 @@ const app = express();
 
 const requestHandler = createRequestHandler({
 	basePath: BASE_PATH,
-	apiUrl: GATE_API_URL,
-	widgetUrl: GATE_WIDGET_URL,
+	apiBaseUrl: GATE_API_URL,
+	gatewayId: GATE_API_GATEWAY_ID,
 	passphrase: GATE_API_PASSPHRASE,
 	secret
 });
@@ -38,7 +38,7 @@ app.listen(port, '0.0.0.0', () => {
 	console.log(`Demo service is listening at http://0.0.0.0:${port}${BASE_PATH}`);
 	console.log();
 	console.log(`GATE_API_URL: ${GATE_API_URL}`);
-	console.log(`GATE_WIDGET_URL: ${GATE_WIDGET_URL}`);
+	console.log(`GATE_API_GATEWAY_ID: ${GATE_API_GATEWAY_ID}`);
 	console.log();
 });
 
