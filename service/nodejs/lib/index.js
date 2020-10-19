@@ -87,6 +87,7 @@ function createRequestHandler({ basePath, apiBaseUrl, gatewayId, passphrase, sec
 	// Render demo UI
 	router.use(basePath, express.static(path.normalize(path.join(__dirname, "..", "..", "..", "ui"))));
 
+	
 	return router;
 }
 
