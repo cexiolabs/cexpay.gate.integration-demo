@@ -1,4 +1,7 @@
 #!/bin/sh
+
+set -e
+
 BASE_URL="https://evolution.cryptopay.band"
 GATEWAY_ID=""
 
@@ -39,8 +42,6 @@ cat ./ui/gambling.html \
 	> ./ui/gambling-new.html
 
 mv ./ui/gambling-new.html ./ui/gambling.html
-
-set -e
 
 if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ]; then
   set -- node "$@"
