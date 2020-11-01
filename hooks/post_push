@@ -3,7 +3,7 @@
 
 set -ex
 
-TIMESTAMP=$(date +%Y%d%d%H%M%S)
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
 
 docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${TIMESTAMP}"
 docker push "${DOCKER_REPO}:${TIMESTAMP}"
