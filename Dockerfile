@@ -20,12 +20,8 @@ FROM node:14-alpine
 COPY --from=Builder /build/ /
 WORKDIR /usr/local/cryptopay-demo
 EXPOSE 8080
-ENV GATE_API_URL=
-ENV GATE_API_GATEWAY_ID=
-ENV GATE_API_PASSPHRASE=
-ENV GATE_API_SECRET=
-ENV GATE_WIDGET_URL=
-ENV BASE_PATH=
-ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+ENV GATE_URL=
+ENV GATE_ID=
+ENV GATE_PASSPHRASE=
+ENV GATE_SECRET=
 ENTRYPOINT [ "/usr/local/cryptopay-demo/docker-entrypoint.sh" ]
-CMD [ "/usr/local/cryptopay-demo/service/nodejs/bin/app.js" ]

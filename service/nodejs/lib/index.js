@@ -5,21 +5,15 @@ const fetch = require('node-fetch');
 const express = require('express');
 const path = require('path');
 
-function createRequestHandler({ basePath, apiBaseUrl, gatewayId, passphrase, secret }) {
+function createRequestHandler({ url, id, passphrase, secret }) {
 	const router = express.Router();
 
-	// Some validatetion
-	if (!/^(\/[A-Za-z0-9\-]+)?\/$/.test(basePath)) {
-		throw new Error(`Bad value of basePath: ${basePath}`);
-	}
+	const apiUrl = new URL(url); // clone
+	apiUrl.pathname = path.join('/v2/gate', encodeURI(id)); // join with "id"
 
-	const apiUrl = new URL(apiBaseUrl);
-	apiUrl.pathname = path.join(apiUrl.pathname, gatewayId);
-	console.log(apiUrl.toString());
+	router.use("/api", bodyParser.json());
 
-	router.use(basePath, bodyParser.json());
-
-	router.post(`${basePath}api`, async (req, res) => {
+	router.post("/api", async (req, res) => {
 		try {
 			const { currency, amount } = req.body;
 			// TODO some validation for currency and amount.
@@ -71,23 +65,32 @@ function createRequestHandler({ basePath, apiBaseUrl, gatewayId, passphrase, sec
 				throw new Error(`${fetchResponse.status} ${fetchResponse.statusText}`);
 			}
 
-			const order = await fetchResponse.json();
+			console.log(fetchResponse);
+
+			let order;
+			try {
+				order = await fetchResponse.json();
+			} catch (e) {
+				const textData = await fetchResponse.text();
+				console.error(textData);
+				throw e;
+			}
 
 			res.status(201).end(JSON.stringify({ orderId: order.id }));
 
-			console.log(`Got request for new order ${amount} ${currency}. OrderId is '${ order.id }'.`);
+			console.log(`Got request for new order ${amount} ${currency}. OrderId is '${order.id}'.`);
 
 		} catch (error) {
 			console.error(error);
-			const errMessage = 'Underlaying service error: ' + error.message;
+			const errMessage = 'Underlying service error: ' + error.message;
 			res.writeHead(500).end(JSON.stringify({ error: errMessage }));
 		}
 	});
 
 	// Render demo UI
-	router.use(basePath, express.static(path.normalize(path.join(__dirname, "..", "..", "..", "ui"))));
+	router.use("/", express.static(path.normalize(path.join(__dirname, "..", "..", "..", "ui"))));
 
-	
+
 	return router;
 }
 

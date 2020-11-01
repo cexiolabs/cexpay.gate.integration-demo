@@ -6,39 +6,37 @@ const express = require('express');
 const { createRequestHandler } = require('../lib/index');
 
 // Read configurations
-const BASE_PATH = process.env.BASE_PATH || "/";
-const GATE_API_URL = new URL(process.env.GATE_API_URL);
-const GATE_API_GATEWAY_ID = process.env.GATE_API_GATEWAY_ID;
-const GATE_API_PASSPHRASE = process.env.GATE_API_PASSPHRASE;
-const GATE_API_SECRET = process.env.GATE_API_SECRET;
+const GATE_URL = new URL(process.env.GATE_URL);
+const GATE_ID = process.env.GATE_ID;
+const GATE_PASSPHRASE = process.env.GATE_PASSPHRASE;
+const GATE_SECRET_BASE64 = process.env.GATE_SECRET;
 
-const port = 8080;
-const secret = GATE_API_SECRET !== undefined ? Buffer.from(GATE_API_SECRET, "base64") : null;
+const PORT = 8080;
+const GATE_SECRET = Buffer.from(GATE_SECRET_BASE64, "base64");
 
-// Define Express Applcation https://expressjs.com/en/starter/hello-world.html
+// Define Express Application https://expressjs.com/en/starter/hello-world.html
 const app = express();
 
 const requestHandler = createRequestHandler({
-	basePath: BASE_PATH,
-	apiBaseUrl: GATE_API_URL,
-	gatewayId: GATE_API_GATEWAY_ID,
-	passphrase: GATE_API_PASSPHRASE,
-	secret
+	url: GATE_URL,
+	id: GATE_ID,
+	passphrase: GATE_PASSPHRASE,
+	secret: GATE_SECRET
 });
 
 app.use(requestHandler);
 
 // Redirect
-if (BASE_PATH !== '/') {
-	app.get('/', (_, res) => res.redirect(BASE_PATH));
+if (GATE_URL.pathname !== '/') {
+	app.get('/', (_, res) => res.redirect(GATE_URL.pathname));
 }
 
 // Listen
-app.listen(port, '0.0.0.0', () => {
-	console.log(`Demo service is listening at http://localhost:${port}${BASE_PATH}`);
+app.listen(PORT, '0.0.0.0', () => {
+	console.log(`Demo service is listening at http://localhost:${PORT}${GATE_URL.pathname}`);
 	console.log();
-	console.log(`GATE_API_URL: ${GATE_API_URL}`);
-	console.log(`GATE_API_GATEWAY_ID: ${GATE_API_GATEWAY_ID}`);
+	console.log(`GATE_URL: ${GATE_URL}`);
+	console.log(`GATE_ID: ${GATE_ID}`);
 	console.log();
 });
 
