@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const express = require('express');
 const path = require('path');
 
-function createRequestHandler({ apiOrigin, url, id, passphrase, secret }) {
+function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 	const router = express.Router();
 
 	const apiUrl = new URL(apiOrigin); // clone
@@ -88,11 +88,6 @@ function createRequestHandler({ apiOrigin, url, id, passphrase, secret }) {
 	});
 
 	// Render demo UI
-	router.get(["/ecommerce.html", "/eservice.html", "/gambling.html"], (req, res, next) => {
-		console.warn(`TODO Inject '${url.toString()}' into gatewayId, script src="..." and widgetUrl`);
-		return next();
-	});
-
 	// Static files
 	router.use("/", express.static(path.normalize(path.join(__dirname, "..", "..", "..", "ui"))));
 
