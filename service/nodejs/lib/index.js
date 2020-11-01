@@ -5,10 +5,10 @@ const fetch = require('node-fetch');
 const express = require('express');
 const path = require('path');
 
-function createRequestHandler({ url, id, passphrase, secret }) {
+function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 	const router = express.Router();
 
-	const apiUrl = new URL(url); // clone
+	const apiUrl = new URL(apiOrigin); // clone
 	apiUrl.pathname = path.join('/v2/gate', encodeURI(id)); // join with "id"
 
 	router.use("/api", bodyParser.json());

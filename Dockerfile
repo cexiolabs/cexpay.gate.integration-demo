@@ -24,4 +24,8 @@ ENV GATE_URL=
 ENV GATE_ID=
 ENV GATE_PASSPHRASE=
 ENV GATE_SECRET=
+# BASE_PATH define web root path. For example SANDBOX enviroment set this to '/widget-demo'
+ENV BASE_PATH=/
+# API_ORIGIN allows to override connectivity between demo-service and CryptoPay's backend (for internal use).
+ENV API_ORIGIN=
 ENTRYPOINT [ "/usr/local/cryptopay-demo/docker-entrypoint.sh" ]

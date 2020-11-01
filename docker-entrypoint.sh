@@ -27,11 +27,6 @@ if [ -z "$GATE_URL" ]; then
 	echo
 fi
 
-
-echo "Gateway ID: $GATE_ID"
-echo "Widget URL: $GATE_URL"
-
-
 mv ./ui/ecommerce.html ./ui/ecommerce.html.bak
 cat ./ui/ecommerce.html.bak \
 	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/[^\\/]*widget.*\\.js\\\"><\\/script>.*)$~\1$GATE_URL\2~g" \
