@@ -92,6 +92,8 @@ function createRequestHandler({ apiOrigin, url, id, passphrase, secret }) {
 		console.warn(`TODO Inject '${url.toString()}' into gatewayId, script src="..." and widgetUrl`);
 		return next();
 	});
+
+	// Static files
 	router.use("/", express.static(path.normalize(path.join(__dirname, "..", "..", "..", "ui"))));
 
 

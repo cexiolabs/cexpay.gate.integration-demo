@@ -26,6 +26,7 @@ const app = express();
 
 const requestHandler = createRequestHandler({
 	apiOrigin: GATE_API_ORIGIN,
+	url: GATE_URL,
 	id: GATE_ID,
 	passphrase: GATE_PASSPHRASE,
 	secret: GATE_SECRET
