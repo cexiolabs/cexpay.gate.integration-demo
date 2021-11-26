@@ -9,7 +9,7 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 	const router = express.Router();
 
 	const apiUrl = new URL(apiOrigin); // clone
-	apiUrl.pathname = path.join('/v2/gate', encodeURI(id)); // join with "id"
+	apiUrl.pathname = path.join('/v3/gate', encodeURI(id), "createOrder");
 
 	router.use("/api", bodyParser.json());
 
@@ -19,8 +19,7 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 			// TODO some validation for currency and amount.
 
 			const requestBody = {
-				"instrument": "CRYPTO_SELL",
-				"model": "DEFAULT",
+				"id": "cpo" + Date.now(),
 				"to": {
 					currency,
 					amount,

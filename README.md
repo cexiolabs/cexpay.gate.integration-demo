@@ -1,34 +1,35 @@
-# Cryptopay Payment Gateway demo
+# CEX Pay Payment Gateway demo
 
-This projects demostates integration with Cryptopay Payment Gateway.
-You can check documentation [here](https://developers.cryptopay.band/gateway/gateway-overview).
+This projects demostates integration with CEX Pay Payment Gateway.
+You can check documentation [here](https://developers.cexpay.io/gateway/gateway-overview/).
 
 ## Quick start via Docker
 
-1. Login into [Merchant's Dashboard Web Application](https://developers.cryptopay.band/#environments) and register(create) your own Gate (Setup -> Gate). Grab settings: `API URL`, `API Passphase`, `API Secret` and `Widget URL`
-1. Start demo container by following command:
+1. Login into [Merchant's Dashboard Web Application](https://developers.cexpay.io/gateway/gateway-management/) and register (create) your own Gateway. Grab settings: `API URL`, `API Passphase`, `API Secret` and `Widget URL`
+2. Start demo container by following command:
 	```bash
-	export GATE_ID=...          # Like xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+	export GATE_ID=...          # Like a65f7fe6-ad2a-4fbe-9f2b-b939db70733c
 	export GATE_PASSPHRASE=...
 	export GATE_SECRET=...
-	export GATE_URL=...         # Optional (default: https://sandbox.cryptopay.band/widget/)
-	docker run --rm --interactive --tty --publish 8080:8080 --env GATE_ID --env GATE_PASSPHRASE --env GATE_SECRET --env GATE_URL cexiolabs/cryptopay.demo
+	export GATE_URL=...         # Optional (local: http://127.0.0.1:38091)
+	docker run --rm --interactive --tty --publish 8080:8080 --env GATE_ID --env GATE_PASSPHRASE --env GATE_SECRET --env GATE_URL cexiolabs/cexpay.gate.integration-demo
 	```
-1. Open the following address in your browser: http://localhost:8080
+3. Open the following address in your browser: http://localhost:8080
 
 ## Dev notes
 
 ### How to start
 ```bash
-git clone <THIS REPO> cryptopay.demo.service
-cd cryptopay.demo.service
+git clone <THIS REPO> cexpay.gate.integration-demo
+cd cexpay.gate.integration-demo
 git submodule update --init
-cd service/nodejs
-npm install
-npm start
 ```
+
+Then open VS Code, copy `.env-example` file into `.env` and set passphrase/secret there (+ optionally override gateway uuid and gate back-end url).
+
+Now you can launch and debug app via VS Code configuration.
 
 ### How to build Docker image
 ```bash
-docker build --tag cexiolabs/cryptopay.demo --file Dockerfile .
+docker build --tag cexiolabs/cexpay.gate.integration-demo .
 ```
