@@ -24,8 +24,8 @@ ENV GATE_URL=
 ENV GATE_ID=
 ENV GATE_PASSPHRASE=
 ENV GATE_SECRET=
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 # BASE_PATH define web root path
 ENV BASE_PATH=/
-# GATE_API_ORIGIN allows to override connectivity between demo-service and CEX Pay's backend (for internal use).
-ENV GATE_API_ORIGIN=
-ENTRYPOINT [ "/usr/local/cryptopay-demo/docker-entrypoint.sh" ]
+
+ENTRYPOINT [ "/usr/local/cexpay-demo/docker-entrypoint.sh" ]

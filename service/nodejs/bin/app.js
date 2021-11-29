@@ -11,7 +11,7 @@ const GATE_ID = process.env.GATE_ID;
 const GATE_PASSPHRASE = process.env.GATE_PASSPHRASE;
 const GATE_SECRET_BASE64 = process.env.GATE_SECRET;
 const BASE_PATH = process.env.BASE_PATH || "/";
-const GATE_API_ORIGIN = process.env.GATE_API_ORIGIN !== undefined ? process.env.GATE_API_ORIGIN : GATE_URL.origin;
+const GATE_API_ORIGIN = GATE_URL.origin;
 
 if (!BASE_PATH.startsWith("/")) {
 	console.error(`Bad BASE_PATH value '${BASE_PATH}'. It should starts from '/'.`)
