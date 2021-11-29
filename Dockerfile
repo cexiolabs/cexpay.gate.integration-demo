@@ -1,5 +1,5 @@
 FROM node:14-alpine AS Builder
-WORKDIR /build/usr/local/cryptopay-demo
+WORKDIR /build/usr/local/cexpay-demo
 
 # Coping necessary artifacts
 COPY service/nodejs/bin/ service/nodejs/bin/
@@ -18,14 +18,14 @@ RUN rm service/nodejs/package-lock.json
 # Make final image
 FROM node:14-alpine
 COPY --from=Builder /build/ /
-WORKDIR /usr/local/cryptopay-demo
+WORKDIR /usr/local/cexpay-demo
 EXPOSE 8080
 ENV GATE_URL=
 ENV GATE_ID=
 ENV GATE_PASSPHRASE=
 ENV GATE_SECRET=
-# BASE_PATH define web root path. For example SANDBOX enviroment set this to '/widget-demo'
+# BASE_PATH define web root path
 ENV BASE_PATH=/
-# GATE_API_ORIGIN allows to override connectivity between demo-service and CryptoPay's backend (for internal use).
+# GATE_API_ORIGIN allows to override connectivity between demo-service and CEX Pay's backend (for internal use).
 ENV GATE_API_ORIGIN=
 ENTRYPOINT [ "/usr/local/cryptopay-demo/docker-entrypoint.sh" ]
