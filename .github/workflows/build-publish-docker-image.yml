@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: recursive
     - name: Fetch the GitHub tag name
       id: get_version
       run: echo ::set-output name=GITHUB_TAG::${GITHUB_REF#refs/tags/}
