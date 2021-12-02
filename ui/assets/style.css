@@ -1,0 +1,43 @@
+body, html {
+    height: 100%;
+}
+body {
+    background:url("slider.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.navbar-demo {
+    background-color: transparent;
+    font-size: 24px;
+    color: white;
+    margin-top: 20px;
+}
+.title {
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    border: 2px solid white;
+    margin: auto;
+}
+.title p {
+    margin: 0;
+}
+.nav-left {
+    text-align: left;
+    margin: auto;
+}
+.nav-right {
+    text-align: right;
+    margin: auto;
+}
+.nav-right a, .nav-left a {
+    color: white;
+    margin: auto;
+}
+
+.fixed-bottom {
+    height: 25%;
+    background-color: black;
+    color: white;
+}
