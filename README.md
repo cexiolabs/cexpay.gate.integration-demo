@@ -20,9 +20,7 @@ You can check documentation [here](https://developers.cexpay.io/gateway/gateway-
 
 ### How to start
 ```bash
-git clone <THIS REPO> cexpay.gate.integration-demo
-cd cexpay.gate.integration-demo
-git submodule update --init
+git clone https://github.com/cexiolabs/cexpay.gate.integration-demo.git
 ```
 
 Then open VS Code, copy `.env-example` file into `.env` and set passphrase/secret there (+ optionally override gateway uuid and gate back-end url).
