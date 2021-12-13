@@ -9,7 +9,7 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 	const router = express.Router();
 
 	const apiUrl = new URL(apiOrigin); // clone
-	apiUrl.pathname = path.join('/v3/gate', encodeURI(id), "createOrder");
+	apiUrl.pathname = path.join('/v3/gate', encodeURI(id));
 
 	router.use("/api", bodyParser.json());
 
