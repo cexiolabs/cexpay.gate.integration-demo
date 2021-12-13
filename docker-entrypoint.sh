@@ -15,9 +15,18 @@ if [ -z "$GATE_SECRET" ]; then
 	exit 1
 fi
 if [ -z "$GATE_URL" ]; then
-	export GATE_URL="http://127.0.0.1:38091"
+	export GATE_URL="https://gate.pay-cex-test.net/"
 	echo "Warning. A GATE_URL environment variable is not defined. Fallback to the local deployment environment."
 	echo
+else
+	case "${GATE_URL}" in
+		*/)
+			;;
+		*)
+			GATE_URL="${GATE_URL}/"
+			echo "Normalize GATE_URL: ${GATE_URL}"
+			;;
+	esac
 fi
 
 mv ./ui/ecommerce.html ./ui/ecommerce.html.bak
