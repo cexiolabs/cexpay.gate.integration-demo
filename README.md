@@ -1,6 +1,6 @@
 # CEX Pay Payment Gateway demo
 
-This projects demostates integration with CEX Pay Payment Gateway.
+This projects demonstrates the integration with CEX Pay Payment Gateway.
 You can check documentation [here](https://developers.cexpay.io/gateway/gateway-overview/).
 
 ## Quick start via Docker
