@@ -29,6 +29,8 @@ else
 	esac
 fi
 
+cd /usr/local/cexiolabs/cexpay.gate.integration-demo
+
 mv ./ui/ecommerce.html ./ui/ecommerce.html.bak
 cat ./ui/ecommerce.html.bak \
 	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$GATE_URL\2~g" \
@@ -50,4 +52,4 @@ cat ./ui/gambling.html.bak \
 	| sed -re "s~^(\\s*const\\s*gatewayId\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_ID\2~g" \
 	> ./ui/gambling.html
 
-exec node /usr/local/cexpay-demo/service/nodejs/bin/app.js $@
+exec node ./service/nodejs/bin/app.js $@
