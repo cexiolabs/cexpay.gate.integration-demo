@@ -1,11 +1,23 @@
 // Necessary modules
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
-const fetch = require('node-fetch');
 const express = require('express');
+const fetch = require('node-fetch');
+const fs = require('fs');
+const https = require('https');
 const path = require('path');
 
-function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
+
+function createRequestHandler({ apiOrigin, id, passphrase, secret, caCertFile }) {
+	const agentOpts = {};
+	if(caCertFile) {
+		if(!fs.existsSync(caCertFile)) {
+			throw new Error(`The provided CA certificate file '${caCertFile}' does not exist.`);
+		}
+		agentOpts.ca = fs.readFileSync(caFile, "utf-8");
+	}
+	const requestAgent = new https.Agent(Object.freeze(agentOpts));
+
 	const router = express.Router();
 
 	const apiUrl = new URL(apiOrigin); // clone
@@ -56,7 +68,8 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret }) {
 			const fetchResponse = await fetch(apiUrl, {
 				method: 'POST',
 				body: requestRawBody,
-				headers: requestHeaders
+				headers: requestHeaders,
+				agent: requestAgent
 			});
 
 			if (!fetchResponse.ok) { // fetchResponse.status >= 200 && fetchResponse.status < 300

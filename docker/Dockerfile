@@ -27,6 +27,7 @@ ENV GATE_URL=
 ENV GATE_ID=
 ENV GATE_PASSPHRASE=
 ENV GATE_SECRET=
+ENV GATE_CA_FILE=
 # BASE_PATH define web root path
 ENV BASE_PATH=/
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
