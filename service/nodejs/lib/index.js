@@ -14,7 +14,7 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret, caCertFile })
 		if(!fs.existsSync(caCertFile)) {
 			throw new Error(`The provided CA certificate file '${caCertFile}' does not exist.`);
 		}
-		agentOpts.ca = fs.readFileSync(caFile, "utf-8");
+		agentOpts.ca = fs.readFileSync(caCertFile, "utf-8");
 	}
 	const requestAgent = new https.Agent(Object.freeze(agentOpts));
 
