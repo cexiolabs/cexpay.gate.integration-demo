@@ -5,6 +5,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const https = require('https');
+const http = require('http');
 const path = require('path');
 
 
@@ -16,7 +17,7 @@ function createRequestHandler({ apiOrigin, id, passphrase, secret, caCertFile })
 		}
 		agentOpts.ca = fs.readFileSync(caCertFile, "utf-8");
 	}
-	const requestAgent = new https.Agent(Object.freeze(agentOpts));
+	const requestAgent = apiOrigin.startsWith('https') ? new https.Agent(Object.freeze(agentOpts)) : new http.Agent(Object.freeze(agentOpts));
 
 	const router = express.Router();
 
