@@ -29,26 +29,39 @@ else
 	esac
 fi
 
+if [ -z "${WIDGET_URL}" ]; then
+	WIDGET_URL="${GATE_URL}"
+else
+	case "${WIDGET_URL}" in
+		*/)
+			;;
+		*)
+			WIDGET_URL="${WIDGET_URL}/"
+			echo "Normalize WIDGET_URL: ${WIDGET_URL}"
+			;;
+	esac
+fi
+
 cd /usr/local/cexiolabs/cexpay.gate.integration-demo
 
 mv ./ui/ecommerce.html ./ui/ecommerce.html.bak
 cat ./ui/ecommerce.html.bak \
-	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$GATE_URL\2~g" \
-	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_URL\2~g" \
+	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$WIDGET_URL\2~g" \
+	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$WIDGET_URL\2~g" \
 	| sed -re "s~^(\\s*const\\s*gatewayId\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_ID\2~g" \
 	> ./ui/ecommerce.html
 
 mv ./ui/eservice.html ./ui/eservice.html.bak
 cat ./ui/eservice.html.bak \
-	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$GATE_URL\2~g" \
-	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_URL\2~g" \
+	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$WIDGET_URL\2~g" \
+	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$WIDGET_URL\2~g" \
 	| sed -re "s~^(\\s*const\\s*gatewayId\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_ID\2~g" \
 	> ./ui/eservice.html
 
 mv ./ui/gambling.html ./ui/gambling.html.bak
 cat ./ui/gambling.html.bak \
-	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$GATE_URL\2~g" \
-	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_URL\2~g" \
+	| sed -re "s~^(\\s*<script\\s*src=\\\").*(\\/*js\/widget.*\\.js\\\"><\\/script>.*)$~\1$WIDGET_URL\2~g" \
+	| sed -re "s~^(\\s*const\\s*widgetUrl\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$WIDGET_URL\2~g" \
 	| sed -re "s~^(\\s*const\\s*gatewayId\\s*=\\s*\\\")[^\\\"]*(.*)$~\1$GATE_ID\2~g" \
 	> ./ui/gambling.html
 
